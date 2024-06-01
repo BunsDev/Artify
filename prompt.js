@@ -22,7 +22,7 @@ async function generateImage(prompt) {
         prompt: prompt,
         n: 1,
         size: "1024x1024",
-        response_format: "b64_json",
+        // response_format: "b64_json",
       }),
     });
 
@@ -30,17 +30,17 @@ async function generateImage(prompt) {
       const data = await response.json();
 
       // Generate a unique filename using a timestamp
-      const filename = `output_${new Date().getTime()}.json`;
+      // const filename = `output_${new Date().getTime()}.json`;
 
       // Correct way to use fs with ESM
-      const fs = await import("fs/promises");
-      await fs.writeFile(
-        filename,
-        JSON.stringify(data.data[0], null, 2),
-        "utf-8"
-      );
+      // const fs = await import("fs/promises");
+      // await fs.writeFile(
+      //   filename,
+      //   JSON.stringify(data.data[0], null, 2),
+      //   "utf-8"
+      // );
 
-      console.log(`Image data has been written to ${filename}`);
+      // console.log(`Image data has been written to ${filename}`);
       return { success: true, message: "Success", data: data.data[0] };
     } else {
       throw new Error(`Failed to generate image: ${response.statusText}`);

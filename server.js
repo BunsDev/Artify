@@ -20,6 +20,7 @@ app.post("/prompt-to-image", async (req, res) => {
     res.status(200).send({ success: true });
 
     const response = await generateImage(data.prompt);
+    // console.log(response);
     if (response.success) {
       /// call contract
     } else {
@@ -27,8 +28,6 @@ app.post("/prompt-to-image", async (req, res) => {
     }
   } catch (error) {
     throw error;
-    // const error_data = JSON.parse(error.message);
-    // res.status(500).send({ success: false, error: error_data });
   }
 });
 
@@ -38,6 +37,7 @@ app.post("/image-to-image", async (req, res) => {
     res.status(200).send({ success: true });
 
     const response = await generateImageVariations(data.image);
+    // console.log(response);
     if (response.success) {
       /// call contract
     } else {
