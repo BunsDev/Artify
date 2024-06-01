@@ -43,6 +43,6 @@ async function generateImage(prompt) {
 }
 
 // Usage example
-generateImage("A futuristic cityscape")
+generateImage("A boy with a cat")
     .then((data) => console.log("Generated Image Data Saved:", data))
     .catch((error) => console.error(error));
