@@ -11,15 +11,14 @@ async function downloadImage(imageUrl) {
   return response.buffer();
 }
 
-async function generateImageVariations(imageUrl) {
+async function generateImageVariations(imageUrl, API_KEY) {
   const FormData = (await import("form-data")).default;
   const formData = new FormData();
-  const apiKey = process.env.API_KEY; // Replace YOUR_API_KEY with your actual OpenAI API key.
+  // const apiKey = API_KEY; // Replace YOUR_API_KEY with your actual OpenAI API key.
   const url = "https://api.openai.com/v1/images/variations";
 
   try {
     const imageBuffer = await downloadImage(imageUrl);
-    console.log(imageBuffer);
     formData.append("image", imageBuffer, {
       filename: "image.jpg", // OpenAI API needs a filename for the image
       contentType: "image/jpeg", // Ensure this matches the image content type
@@ -29,7 +28,7 @@ async function generateImageVariations(imageUrl) {
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${API_KEY}`,
         // 'Content-Type': 'multipart/form-data' is set automatically by form-data
       },
       body: formData,

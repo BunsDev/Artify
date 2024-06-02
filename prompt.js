@@ -6,16 +6,15 @@ dotenv.config();
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
-async function generateImage(prompt) {
+async function generateImage(prompt, API_KEY) {
   try {
-    const apiKey = process.env.API_KEY;
     const url = "https://api.openai.com/v1/images/generations";
 
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${API_KEY}`,
       },
       body: JSON.stringify({
         model: "dall-e-3",
