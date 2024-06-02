@@ -1,9 +1,9 @@
 const ethers = require("ethers");
-const ABI = require("../config/abi.json");
+const ABI = require("./config/abi.json");
 const fs = require("fs-extra");
 require("dotenv").config();
 
-exports.mintNft = async (data) => {
+exports.setImages = async (data, type = 0) => {
   try {
     const provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
 
@@ -22,9 +22,11 @@ exports.mintNft = async (data) => {
       wallet
     );
 
-    const tx = await contract.mintNft(data);
+    const tx =
+      type == 0
+        ? await contract.setPromptImage(data)
+        : await contract.setImageUrls(data[0], data[1], data[2]);
     const receipt = await tx.wait();
-
     if (receipt.status) {
       return { success: true, tx, message: "Transaction successful" };
     } else {
